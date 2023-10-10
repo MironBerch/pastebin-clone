@@ -21,7 +21,9 @@ services:
   celery_worker:
     container_name: celery_worker
     build: images/backend
-    command: uv run celery -A src.celery worker --loglevel=info
+    command: >
+      sh -c "cd /app/src/
+      && uv run celery -A celery_app.celery_app worker --loglevel=info"
     volumes:
       - ./images/backend/:/app/
     depends_on:

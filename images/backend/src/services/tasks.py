@@ -5,12 +5,12 @@ from sqlalchemy import delete
 
 from db.minio import MinIOClient, get_minio_client
 from models.pastes import Paste
-from src.celery import celery_app
+from src.celery_app import celery_app
 from db.postgres import get_async_session
 
 
 @celery_app.task
-def burn_paste(paste_id: str | UUID) -> None:
+async def burn_paste(paste_id: str | UUID) -> None:
     session: AsyncSession = get_async_session()
     minio: MinIOClient = get_minio_client()
     minio.delete_file(f'{paste_id}.txt')

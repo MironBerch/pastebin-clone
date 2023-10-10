@@ -8,7 +8,7 @@ celery_app = Celery(
     'tasks',
     broker=f'redis://{redis.host}:{redis.port}/{redis.db}',
     backend=f'redis://{redis.host}:{redis.port}/{redis.db}',
-    include=['src.tasks.tasks']
+    include=['src.services.tasks']
 )
 
 celery_app.conf.update(
