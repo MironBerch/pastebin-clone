@@ -1,9 +1,11 @@
 import uuid
 from enum import Enum
+from datetime import datetime
 
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, DateTime
 from sqlalchemy import Enum as SQLAlchemyEnum
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.sql import func
 
 from db.postgres import Base
 
@@ -13,9 +15,7 @@ class ExpirationOption(Enum):
     ONE_HOUR = '1_hour'
     ONE_DAY = '1_day'
     ONE_WEEK = '1_week'
-    TWO_WEEKS = '2_weeks'
     ONE_MONTH = '1_month'
-    SIX_MONTHS = '6_months'
     ONE_YEAR = '1_year'
     NEVER = 'never'
     BURN_AFTER_READ = 'burn_after_read'
@@ -23,7 +23,6 @@ class ExpirationOption(Enum):
 
 class ExposureOption(Enum):
     PUBLIC = 'public'
-    PRIVATE = 'private'
     UNLISTED = 'unlisted'
 
 
@@ -49,4 +48,6 @@ class Paste(Base):
         nullable=False,
     )
 
-    password_hash: Column[str] = Column(String, nullable=True)
+    created_at: Column[datetime] = Column(
+        DateTime(timezone=True), server_default=func.now(), nullable=False
+    )
