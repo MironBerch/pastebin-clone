@@ -20,6 +20,15 @@ class PostgresConfig(BaseModel):
     )
 
 
+class MinioConfig(BaseModel):
+    host: str = 'minio'
+    port: int = 9000
+    user: str = environ.get('MINIO_ROOT_USER', 'minioadmin')
+    password: SecretStr = SecretStr(
+        environ.get('MINIO_ROOT_PASSWORD', 'minioadmin'),
+    )
+
+
 class FastAPIConfig(BaseModel):
     title: str = 'Pastebin-clone API v1'
     description: str = 'Pastebin-clone API'
@@ -31,6 +40,7 @@ class FastAPIConfig(BaseModel):
 
 
 class Settings(BaseSettings):
+    minio: MinioConfig = Field(default_factory=MinioConfig)
     redis: RedisConfig = Field(default_factory=RedisConfig)
     postgres: PostgresConfig = Field(default_factory=PostgresConfig)
     fastapi: FastAPIConfig = Field(default_factory=FastAPIConfig)
