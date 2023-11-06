@@ -7,6 +7,7 @@ from sqlalchemy import pool
 
 path.append(join(path[0], 'src'))
 from db.postgres import DATABASE_URL, Base
+from models.pastes import Paste  # noqa
 
 
 config = context.config
