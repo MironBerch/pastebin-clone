@@ -5,7 +5,8 @@ services:
     restart: always
     build: images/backend
     command: >
-      sh -c "cd /app/src/
+      sh -c "uv run alembic upgrade head
+      && cd /app/src/
       && uv run main.py"
     expose:
       - "8000"
