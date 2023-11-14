@@ -1,0 +1,40 @@
+services:
+
+  backend:
+    container_name: backend
+    restart: always
+    build: images/backend
+    command: >
+      sh -c "cd /app/src/
+      && uv run main.py"
+    expose:
+      - "8000"
+    volumes:
+      - ./images/backend/:/app/
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  redis:
+    container_name: redis
+    image: redis:7-alpine
+    restart: always 
+    ports:
+      - "6379:6379"
+
+  db:
+    container_name: db
+    image: postgres:16-alpine
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_DB=pastebin"
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
+    volumes:
+        - db_volume:/var/lib/postgresql/data/
+
+volumes:
+  db_volume:
