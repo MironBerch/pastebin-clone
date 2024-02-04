@@ -21,11 +21,11 @@ class PostgresConfig(BaseModel):
 
 
 class FastAPIConfig(BaseModel):
-    title: str = 'API v1'
-    description: str = 'Read-only movies API'
+    title: str = 'Pastebin-clone API v1'
+    description: str = 'Pastebin-clone API'
     version: str = '1.0'
-    docs_url: str = '/movies/api/docs'
-    openapi_url: str = '/movies/api/openapi.json'
+    docs_url: str = '/api/docs'
+    openapi_url: str = '/api/openapi.json'
     host: str = '0.0.0.0'
     port: int = 8000
 
