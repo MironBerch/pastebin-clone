@@ -6,7 +6,11 @@ done
 
 echo "Postgres did run"
 
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+alembic upgrade head
+
+echo "Migration completed successfully"
+
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 echo "Pastebin API has started"
 

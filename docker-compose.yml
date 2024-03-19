@@ -18,3 +18,7 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "8000:8000"
+    environment:
+      - "POSTGRES_DB=db"
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
