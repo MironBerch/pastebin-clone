@@ -19,3 +19,25 @@ dev = [
     "mypy>=1.16.1",
     "ruff>=0.12.0",
 ]
+
+[tool.ruff.lint.isort]
+known-first-party = ["src"]
+default-section = "third-party"
+force-wrap-aliases = true
+split-on-trailing-comma = true
+lines-after-imports = 2
+combine-as-imports = true
+order-by-type = true
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
+
+[tool.ruff.format]
+quote-style = "preserve"
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+show_error_codes = true
+warn_unused_ignores = true
+exclude = "(^|/)(.venv)/"
+namespace_packages = true
+ignore_missing_imports = true
