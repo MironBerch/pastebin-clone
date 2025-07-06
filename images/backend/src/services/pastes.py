@@ -18,7 +18,7 @@ class PastesService:
         self.db_adapter = db_adapter
         self.s3_adapter = s3_adapter
 
-    def __get_expiration_time(expiration: ExpirationOption) -> int | None:
+    def __get_expiration_time(self, expiration: ExpirationOption) -> int | None:
         return {
             '10_minutes': 10 * 60,
             '1_hour': 60 * 60,
@@ -79,7 +79,7 @@ class PastesService:
         self.s3_adapter.upload_text_file(text, f'{new_paste.id}.txt')
         paste_schema = PasteSchema.model_validate(new_paste)
         paste_schema.text = text
-        countdown = self.__get_expiration_time(paste_schema.expiration)
+        countdown = self.__get_expiration_time(paste_schema.expiration.value)
         if countdown:
             burn_paste.apply_async(args=[paste_schema.id], countdown=countdown)
         return paste_schema
