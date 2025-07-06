@@ -5,7 +5,7 @@ from sqlalchemy import delete
 
 from db.minio import MinIOClient, get_minio_client
 from models.pastes import Paste
-from core.celery import celery_app
+from src.celery import celery_app
 from db.postgres import get_async_session
 
 
