@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 
 import uvicorn
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from api.urls import api_router
 from core.config import settings
@@ -25,6 +26,14 @@ app = FastAPI(
 )
 
 app.include_router(api_router)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_methods=['GET', 'POST'],
+    allow_credentials=True,
+    allow_headers=['*'],
+)
 
 
 if __name__ == '__main__':
