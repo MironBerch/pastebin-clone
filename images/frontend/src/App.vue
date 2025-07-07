@@ -1,9 +1,18 @@
 <script setup lang="ts">
-  import HelloWorld from './components/HelloWorld.vue'
+import { RouterLink, RouterView } from 'vue-router';
 </script>
 
 <template>
-  <HelloWorld msg="Vite + Vue" />
+  <header>
+    <nav>
+      <RouterLink to="/">Create</RouterLink>
+      <RouterLink to="/archive/">Archive</RouterLink>
+    </nav>
+  </header>
+
+  <main>
+    <RouterView />
+  </main>
 </template>
 
 <style scoped></style>
