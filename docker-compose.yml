@@ -18,6 +18,19 @@ services:
       - db
       - minio
 
+  frontend:
+    container_name: frontend
+    restart: always
+    build: images/frontend
+    command: >
+      sh -c "npm run dev"
+    expose:
+      - "3000"
+    volumes:
+      - ./images/frontend/:/app/
+    ports:
+      - "3000:3000"
+
   celery_worker:
     container_name: celery_worker
     build: images/backend
